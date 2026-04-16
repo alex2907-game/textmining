@@ -1,0 +1,30 @@
+import PyPDF2
+import re
+import os
+
+pdf_path = r"C:\Users\PRANAV\AppData\Local\Programs\Python\Python313\file2.pdf"
+
+if not os.path.exists(pdf_path):
+    print("File not found! Check path.")
+else:
+    text = ""
+
+    with open(pdf_path, "rb") as file:
+        reader = PyPDF2.PdfReader(file)
+
+        for page in reader.pages:
+            page_text = page.extract_text()
+            if page_text:
+                text += page_text + " "
+
+    # Clean text
+    text = re.sub(r'\s+', ' ', text)
+
+    # Better sentence splitting
+    sentences = re.split(r'(?<=[.!?]) +', text)
+
+    print("Initiatives found:\n")
+
+    for sentence in sentences:
+        if re.search(r'\binitiativ\w*\b', sentence, re.IGNORECASE):
+            print("-", sentence.strip())
