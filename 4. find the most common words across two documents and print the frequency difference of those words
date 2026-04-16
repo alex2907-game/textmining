@@ -1,0 +1,55 @@
+cmd:
+python -m pip install PyPDF2
+
+code:
+import PyPDF2
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from collections import Counter
+import string
+
+# Download only once
+nltk.download('punkt')
+nltk.download('stopwords')
+
+# Function to extract text from PDF
+def get_text(file):
+    text = ""
+    with open(file, "rb") as f:
+        reader = PyPDF2.PdfReader(f)
+        for page in reader.pages:
+            page_text = page.extract_text()
+            if page_text:  # avoid None error
+                text += page_text
+    return text
+
+# File names
+file1 = "file1.pdf"
+file2 = "file2.pdf"
+
+# Extract text
+text1 = get_text(file1)
+text2 = get_text(file2)
+
+# Tokenize
+words1 = word_tokenize(text1.lower())
+words2 = word_tokenize(text2.lower())
+
+# Remove stopwords & punctuation
+stop_words = set(stopwords.words('english'))
+words1 = [w for w in words1 if w.isalpha() and w not in stop_words]
+words2 = [w for w in words2 if w.isalpha() and w not in stop_words]
+
+# Count frequencies
+freq1 = Counter(words1)
+freq2 = Counter(words2)
+
+# Combine and get most common
+common_words = (freq1 + freq2).most_common(10)
+
+print("Most Common Words:\n", common_words)
+
+print("\nFrequency Difference:")
+for word, _ in common_words:
+    print(f"{word} -> Doc1: {freq1[word]}, Doc2: {freq2[word]}, Difference: {freq1[word] - freq2[word]}")
