@@ -1,0 +1,38 @@
+cmd:
+python -m pip install spacy
+code:
+import spacy
+import random
+from spacy.training.example import Example
+
+nlp = spacy.blank("en")
+
+# FIX: no config here
+textcat = nlp.add_pipe("textcat")
+
+textcat.add_label("POSITIVE")
+textcat.add_label("NEGATIVE")
+
+train_data = [
+    ("I love this product", {"cats": {"POSITIVE": 1, "NEGATIVE": 0}}),
+    ("This movie is great", {"cats": {"POSITIVE": 1, "NEGATIVE": 0}}),
+    ("I hate this service", {"cats": {"POSITIVE": 0, "NEGATIVE": 1}}),
+    ("This experience is bad", {"cats": {"POSITIVE": 0, "NEGATIVE": 1}})
+]
+
+optimizer = nlp.begin_training()
+
+for i in range(10):
+    random.shuffle(train_data)
+    losses = {}
+
+    for text, annotation in train_data:
+        doc = nlp.make_doc(text)
+        example = Example.from_dict(doc, annotation)
+        nlp.update([example], losses=losses)
+
+    print(f"Iteration {i}, Loss: {losses}")
+
+# Test
+doc = nlp("The product is very good")
+print(doc.cats)
