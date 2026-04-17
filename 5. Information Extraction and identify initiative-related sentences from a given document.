@@ -6,7 +6,7 @@ import PyPDF2
 import re
 import os
 
-pdf_path = r"C:\Users\PRANAV\AppData\Local\Programs\Python\Python313\file2.pdf"
+pdf_path = r"inatiative.pdf"
 
 if not os.path.exists(pdf_path):
     print("File not found! Check path.")
