@@ -1,3 +1,7 @@
+cmd:
+py -m pip install scikit-learn
+
+code:
 from sklearn.datasets import make_blobs
 import numpy as np
 
