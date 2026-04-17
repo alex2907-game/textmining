@@ -14,7 +14,7 @@ nlp = spacy.load("en_core_web_sm")  # Pre-trained NER model
 # -----------------------------
 # Step 2: Read unstructured text from PDF
 # -----------------------------
-pdf_path = "file1.pdf"  # Your PDF file
+pdf_path = "data.pdf"  # Your PDF file
 text = ""
 with open(pdf_path, "rb") as file:
     reader = PyPDF2.PdfReader(file)
