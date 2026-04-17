@@ -17,7 +17,7 @@ import PyPDF2
 nltk.download('punkt')
 
 # Step 1: Read text from PDF
-pdf_path = "file1.pdf"  # Replace with your PDF path
+pdf_path = "data.pdf"  # Replace with your PDF path
 text = ""
 with open(pdf_path, "rb") as file:
     reader = PyPDF2.PdfReader(file)
