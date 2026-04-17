@@ -13,7 +13,7 @@ import spacy
 nlp = spacy.load("en_core_web_sm")
 
 # Step 2: Provide PDF file path
-pdf_path = "file1.pdf"
+pdf_path = "sample.pdf"
 
 # Step 3: Extract text from PDF
 text = ""
