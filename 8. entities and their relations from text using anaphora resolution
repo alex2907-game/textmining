@@ -1,6 +1,6 @@
 cmd:
-pip install spacy
-pip install PyPDF2
+python -m pip install spacy
+python -m pip install PyPDF2
 python -m spacy download en_core_web_sm
 
 
