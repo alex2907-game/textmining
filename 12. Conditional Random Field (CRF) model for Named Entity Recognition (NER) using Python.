@@ -1,3 +1,8 @@
+cmd:
+python -m pip install spacy
+python -m pip install PyPDF2
+
+code:
 import PyPDF2
 import spacy
 
